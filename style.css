@@ -1,0 +1,317 @@
+/* =========================================================
+   Resume website styling - Swarit
+   Sections: 1 Variables, 2 Base, 3 Navigation, 4 Hero,
+   5 Sections, 6 Cards, 7 Buttons and links, 8 Footer,
+   9 Responsive (media queries)
+   ========================================================= */
+
+/* 1. CSS VARIABLES: change a colour or font here, it changes everywhere */
+:root {
+  --bg: #f7f8fa;          /* page background (cool off-white) */
+  --surface: #ffffff;     /* card background */
+  --ink: #14213d;         /* main text and headings (deep navy) */
+  --muted: #5b6477;       /* secondary text */
+  --accent: #0f766e;      /* single accent colour (teal) */
+  --accent-soft: #d5ece9; /* light teal for highlights */
+  --line: #dde1e8;        /* thin borders */
+
+  --font-heading: "Newsreader", Georgia, serif;
+  --font-body: "Work Sans", Arial, sans-serif;
+
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 48px;
+  --space-5: 96px;
+}
+
+/* 2. BASE STYLES (element selectors) */
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--ink);
+  background: var(--bg);
+}
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0;
+}
+
+h3 { font-size: 1.2rem; }
+
+p { margin: 0 0 var(--space-2); max-width: 62ch; }
+
+ul { margin: 0; padding: 0; list-style: none; }
+
+a { color: var(--accent); text-decoration: none; }
+
+mark {
+  background: var(--accent-soft);
+  color: var(--ink);
+  padding: 0 4px;
+  border-radius: 3px;
+}
+
+::selection { background: var(--accent-soft); }
+
+/* A centred box so content never gets too wide */
+.container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 var(--space-3);
+}
+
+/* 3. NAVIGATION BAR (position: sticky + flexbox) */
+#main-nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(247, 248, 250, 0.92);
+  border-bottom: 1px solid var(--line);
+}
+
+.nav-inner {
+  display: flex;                 /* flexbox: brand left, links right */
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: var(--space-2) var(--space-3);
+}
+
+.brand {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.nav-links {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.nav-links a {
+  position: relative;
+  color: var(--muted);
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.nav-links a:hover { color: var(--ink); }
+
+/* Pseudo-element: an underline that grows on hover */
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: width 0.2s ease;
+}
+
+.nav-links a:hover::after { width: 100%; }
+
+/* 4. HERO */
+#hero {
+  padding: var(--space-5) 0 var(--space-4);
+}
+
+.hero-name {
+  font-size: clamp(3.5rem, 12vw, 8rem);  /* clamp() = fluid size */
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-2);
+}
+
+.hero-role {
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--accent);
+  margin-bottom: var(--space-3);
+}
+
+.hero-line {
+  font-family: var(--font-heading);
+  font-size: clamp(1.3rem, 3vw, 1.8rem);
+  font-style: italic;
+  color: var(--muted);
+  max-width: 28ch;
+  margin-bottom: var(--space-4);
+}
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* 5. SECTIONS (CSS grid: title left, content right) */
+.section {
+  padding: var(--space-4) 0;
+  border-top: 1px solid var(--line);
+}
+
+.section-grid {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: var(--space-4);
+}
+
+.section-title {
+  font-size: 1.6rem;
+  color: var(--ink);
+}
+
+/* Small accent line before each section title (pseudo-element) */
+.section-title::before {
+  content: "";
+  display: block;
+  width: 32px;
+  height: 3px;
+  margin-bottom: var(--space-2);
+  background: var(--accent);
+}
+
+.lead {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  line-height: 1.4;
+}
+
+/* Education entries */
+.entry {
+  padding-bottom: var(--space-3);
+  margin-bottom: var(--space-3);
+  border-bottom: 1px solid var(--line);
+}
+
+.entry:last-child { border-bottom: none; margin-bottom: 0; }
+
+.entry-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.entry-date { color: var(--muted); font-size: 0.9rem; white-space: nowrap; }
+.entry-place { color: var(--muted); margin: var(--space-1) 0 0; }
+
+/* Simple list with accent bullets */
+.plain-list li {
+  position: relative;
+  padding-left: var(--space-3);
+  margin-bottom: var(--space-1);
+}
+
+.plain-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.7em;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* 6. CARDS (used only for the Skills section) */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-2);
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: var(--space-3);
+  transition: border-color 0.2s ease;
+}
+
+.card:hover { border-color: var(--accent); }
+
+.card h3 { margin-bottom: var(--space-2); }
+.card li { color: var(--muted); font-size: 0.95rem; margin-bottom: var(--space-1); }
+
+/* 7. BUTTONS AND LINKS */
+.btn {
+  display: inline-block;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-weight: 500;
+  border: 2px solid var(--accent);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.btn-primary { background: var(--accent); color: #ffffff; }
+.btn-primary:hover { background: var(--ink); border-color: var(--ink); }
+
+.btn-outline { color: var(--accent); }
+.btn-outline:hover { background: var(--accent); color: #ffffff; }
+
+.contact-email {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: clamp(1.3rem, 4vw, 2rem);
+  margin-bottom: var(--space-3);
+  border-bottom: 2px solid var(--accent-soft);
+  transition: border-color 0.2s ease;
+}
+
+.contact-email:hover { border-color: var(--accent); }
+
+.section-body a:hover { text-decoration: underline; }
+
+/* Visible outline for keyboard users */
+a:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* 8. FOOTER */
+footer {
+  padding: var(--space-3) 0;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+footer p { margin: 0; max-width: none; }
+
+/* 9. RESPONSIVE DESIGN (media queries) */
+
+/* Tablets: stack the title above the content */
+@media (max-width: 800px) {
+  .section-grid { grid-template-columns: 1fr; gap: var(--space-2); }
+  .card-grid { grid-template-columns: 1fr; }
+  #hero { padding-top: var(--space-4); }
+}
+
+/* Phones: let nav links wrap and shrink spacing */
+@media (max-width: 560px) {
+  .nav-inner { flex-direction: column; gap: var(--space-1); }
+  .nav-links { flex-wrap: wrap; justify-content: center; gap: var(--space-2); }
+  .entry-head { flex-direction: column; gap: 4px; }
+  .section { padding: var(--space-3) 0; }
+}
+
+/* Respect people who turn off animations */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
+}
